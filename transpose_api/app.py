@@ -1,6 +1,8 @@
 from flask import Flask, request, Response
+from werkzeug.middleware.profiler import ProfilerMiddleware
 
 app = Flask(__name__)
+app.wsgi_app = ProfilerMiddleware(app.wsgi_app)
 
 # Optimal Time Complexity: O(m*n) - All elements need to be accessed at least once
 # Optimal Space Complexity: O(m*n) - Matrix elements are accessed out of order so buffered streaming is not possible
