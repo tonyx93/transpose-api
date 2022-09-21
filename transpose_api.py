@@ -18,8 +18,7 @@ def simple():
     e.g. [[0,1],[2,3,4]] => [[0,2],[1,3]] (4 is ignored)
 
     Time: O(m*n):
-      m*n to deserialize JSON input
-      m*n to read request data and create data structure in memory
+      m*n to deserialize JSON input into matrix data structure
       m*n to zip columns for each row and collect into a list
       m*n to serialize JSON output
     Space: O(m*n)
@@ -41,9 +40,9 @@ def explicit():
     Will truncate rows to the match len(matrix[0]) otherwise
 
     Time: O(m*n):
-      m*n to deserialize JSON input
-      m*n to read request data and create data structure in memory
+      m*n to deserialize JSON input into matrix data structure
       m*n to map elements to new transposed matrix
+      m*n to serialize JSON output
     Space: O(m*n)
       m*n to store original matrix
       m*n to store transposed matrix
@@ -57,7 +56,7 @@ def explicit():
 @app.post("/raw")
 def raw():
     """
-    Optimized matrix transposition via byte manipulation
+    "Optimized" matrix transposition via byte manipulation
     Supports ASCII standard (i.e. ascii, utf-8, latin-1) using single byte encoding for characters
     WARNING: There is no input validation! Malformed input can lead to unexpected unbehavior e.g. infinite loops
 
@@ -68,6 +67,13 @@ def raw():
     It would be cool to begin writing to the response stream as we read data from the input stream, but in this case, it's not possible.
     We need to know the whole contents of the matrix in order to transpose it
 
+    Time: O(m*n):
+      m*n to read input bytes representing input matrix
+      m*n to index input array
+      m*n to write output bytes representing transposed matrix
+    Space: O(m*n)
+      m*n to store bytes representing input matrix
+      m to store indexes for start of rows
     """
     data = memoryview(request.data)
 
