@@ -5,7 +5,11 @@
 ## Starting the Development Server
 
 1. `pip install -r requirements.txt`
-2. `flask --app transpose_api run`
+2. `flask --app transpose_api.app run`
+
+## Running unit tests
+
+`PYTHONPATH=. pytest`
 
 ## Sample API calls
 Simple Implementation: `curl -d '[[1,2,3,4],[4,5,6,7],[7,8,9,0]]' -H 'Content-Type: application/json; charset=utf-16' http://localhost:5000/simple`
